@@ -1,20 +1,23 @@
 import pytest
+import os # line added to make the linter fail
+from math import * # line added to make the linter fail
+
 from game import generate_number, check_guess, get_guess
 
 
 # Test generate_number
 def test_generate_number():
     number = generate_number()
-    assert 1 <= number <= 100, "The number should be between 1 and 100"
+    assert 101 <= number <= 200, "The number should be between 1 and 100" # modified to make the test fail
 
 
 # Test check_guess
 @pytest.mark.parametrize(
     "guess, secret_number, expected",
     [
-        (50, 75, False),  # Too low
-        (80, 75, False),  # Too high
-        (75, 75, True),  # Correct
+        (80, 75, False),  # Too low - modified to make the test fail
+        (50, 75, False),  # Too high - modified to make the test fail
+        (74, 75, True),  # Correct - modified to make the test fail
     ],
 )
 def test_check_guess(guess, secret_number, expected):
@@ -23,7 +26,7 @@ def test_check_guess(guess, secret_number, expected):
 
 # Test get_guess with mocking input
 def test_get_guess(monkeypatch):
-    monkeypatch.setattr("builtins.input", lambda _: "42")
+    monkeypatch.setattr("builtins.input", lambda _: "not a number") # modified to make the test fail
     assert get_guess() == 42
 
 
